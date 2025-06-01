@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Registro de Alumnos</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-graduation-cap"></i> Sistema de Registro de Alumnos</h1>
+            <p>Gestión de Alumnos - Universidad de Ingeniería</p>
+        </header>
+
+        <nav class="nav-tabs">
+            <button class="tab-button active" onclick="showTab('alumnos')">
+                <i class="fas fa-users"></i> Alumnos
+            </button>
+            <button class="tab-button" onclick="showTab('estadisticas')">
+                <i class="fas fa-chart-bar"></i> Estadísticas
+            </button>
+        </nav>
+
+        <!-- Tab de Alumnos -->
+        <div id="alumnos-tab" class="tab-content active">
+            <div class="actions">
+                <button class="btn btn-primary" onclick="mostrarFormularioNuevo()">
+                    <i class="fas fa-plus"></i> Nuevo Alumno
+                </button>
+                <div class="search-box">
+                    <input type="text" id="buscar" placeholder="Buscar por nombre o carnet...">
+                    <button onclick="buscarAlumnos()"><i class="fas fa-search"></i></button>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table id="tabla-alumnos">
+                    <thead>
+                        <tr>
+                            <th>Carnet</th>
+                            <th>Nombre Completo</th>
+                            <th>Edad</th>
+                            <th>Teléfono</th>
+                            <th>Correo</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody-alumnos">
+                        <tr>
+                            <td colspan="6" class="loading">Cargando alumnos...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Tab de Estadísticas -->
+        <div id="estadisticas-tab" class="tab-content">
+            <div class="stats-container">
+                <h2>Distribución de Alumnos por Edad</h2>
+                <div id="stats-content">
+                    <div class="loading">Cargando estadísticas...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para Formulario -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="cerrarModal()">&times;</span>
+            <h2 id="modal-titulo">Nuevo Alumno</h2>
+            <form id="formulario-alumno" onsubmit="guardarAlumno(event)">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Carnet - Sede (4 dígitos)*</label>
+                        <input type="text" id="carnetSede" maxlength="4" pattern="\d{4}" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Carnet - Año (2 dígitos)*</label>
+                        <input type="text" id="carnetAnio" maxlength="2" pattern="\d{2}" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Carnet - Número (5 dígitos)*</label>
+                        <input type="text" id="carnetNumero" maxlength="5" pattern="\d{5}" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Primer Nombre*</label>
+                        <input type="text" id="primerNombre" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Segundo Nombre</label>
+                        <input type="text" id="segundoNombre">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Primer Apellido*</label>
+                        <input type="text" id="primerApellido" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Segundo Apellido</label>
+                        <input type="text" id="segundoApellido">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Teléfono*</label>
+                        <input type="tel" id="telefono" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Correo Electrónico*</label>
+                        <input type="email" id="correoElectronico" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Fecha de Nacimiento*</label>
+                    <input type="date" id="fechaNacimiento" required>
+                </div>
+
+                <div class="form-buttons">
+                    <button type="button" class="btn btn-secondary" onclick="cerrarModal()">
+                        Cancelar
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Guardar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
